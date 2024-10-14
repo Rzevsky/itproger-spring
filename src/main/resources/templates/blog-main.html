@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.postRepository.org" lang="en">
+<head>
+    <title>It is a blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container py-3">
+    <header th:include="blocks/header :: header"></header>
+
+    <div class="container mt-5">
+        <h1>It is a blog</h1>
+        <!--        th:each - обращение к thymeleaf и его свойству each для перебора коллекции-->
+        <!--        el - это переменная (случайное название), которая будет хранить в себе каждый элемент коллекции-->
+        <!--        : - служит указателем на коллекцию, которую мы хотим перебрать-->
+        <!--        ${posts} - коллекция постов, которую мы передаем в модель из контроллера-->
+        <div th:each="el : ${posts}" class="alert alert-info mt-2">
+            <!--            th:text - обращение к thymeleaf и его свойству text для вывода текста, который мы передаем в атрибуте-->
+            <!--            ${el.title} - передает значение поля title из объекта Post-->
+            <!--            атрибут th:text="|${el.title}|" - выводит значение поля title из объекта Post в теге h3-->
+            <h3 th:text="|${el.title}|"></h3>
+            <p th:text="|${el.anons}|"></p>
+            <!--            th:href - обращение к thymeleaf и его свойству href для указания ссылки-->
+            <!--            "@{'/blog/' + ${el.id}}" - указывает на адрес, который будет содержать id поста-->
+            <a th:href="@{/blog/{id}(id=${el.id})}" class="btn btn-primary">Read more</a>
+
+        </div>
+    </div>
+
+    <footer th:include="~{blocks/footer :: footer}"></footer>
+</div>
+</body>
+</html>
